@@ -1,0 +1,34 @@
+<resources>
+
+    <string name="app_name">HealthyApp</string>
+    <string name="modify_pressure">Blutdruck bearbeiten</string>
+    <string name="wait">Daten werden geladen...</string>
+    
+    <string name="action_settings">Einstellungen</string>
+    <string name="action_save">Speichern</string>
+    <string name="action_edit">Bearbeiten</string>
+    <string name="action_remove">Löschen</string>
+    
+    <string name="date">Datum:</string>
+    <string name="actualDate">Aktuelles Datum</string>
+    <string name="time">Uhrzeit:</string>
+    <string name="actualTime">Aktuelle Uhrzeit</string>
+    
+    <string name="systolisch">Systolisch: </string>
+    <string name="sys">Sys:</string>
+    <string name="diastolisch">Diastolisch: </string>
+    <string name="dia">Dia:</string>
+    <string name="pulse">Puls: </string>
+    <string name="p">P:</string>
+    <string name="pressures">Blutdruckwerte</string>
+    
+    <string name="sugar">Blutzuckerwert:</string>
+    
+    <string name="buttonListPressures">Blutdruckwerte anzeigen</string>
+    <string name="buttonListSugars">Blutzuckerwerte anzeigen</string>
+    <string name="buttonChangeDate">Datum ändern</string>
+    <string name="buttonChangeTime">Uhrzeit ändern</string>
+    <string name="buttonOk">OK</string>
+    <string name="buttonClose">Schließen</string>
+
+</resources>

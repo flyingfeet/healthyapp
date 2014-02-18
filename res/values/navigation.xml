@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="healthy_array">
+        <item>Blutdruck</item>
+        <item>Blutzucker</item>
+    </string-array>
+
+</resources>

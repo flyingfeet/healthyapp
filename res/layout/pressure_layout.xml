@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingBottom="12dp"
+    android:paddingTop="12dp" >
+
+    <TextView
+        android:id="@+id/listDatePressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/actualDate" />
+
+    <TextView
+        android:id="@+id/listTimePressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/listDatePressure"
+        android:text="@string/actualTime" />
+
+    <TextView
+        android:id="@+id/listSystolicText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/listTimePressure"
+        android:text="@string/sys" />
+
+    <TextView
+        android:id="@+id/listSystolic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/listSystolicText"
+        android:layout_alignBottom="@+id/listSystolicText"
+        android:layout_toRightOf="@+id/listSystolicText"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/listDiastolicText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/listSystolic"
+        android:layout_alignBottom="@+id/listSystolic"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/listSystolic"
+        android:text="@string/dia" />
+
+    <TextView
+        android:id="@+id/listDiastolic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/listDiastolicText"
+        android:layout_alignBottom="@+id/listDiastolicText"
+        android:layout_toRightOf="@+id/listDiastolicText"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/listPulseText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/listDiastolic"
+        android:layout_alignBottom="@+id/listDiastolic"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/listDiastolic"
+        android:text="@string/p" />
+
+    <TextView
+        android:id="@+id/listPulse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/listPulseText"
+        android:layout_alignBottom="@+id/listPulseText"
+        android:layout_toRightOf="@+id/listPulseText"
+        android:textStyle="bold" />
+
+</RelativeLayout>

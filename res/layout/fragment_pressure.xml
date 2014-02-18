@@ -1,0 +1,129 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/datePressureList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/date" />
+
+    <Button
+        android:id="@+id/btnChangeDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/actualDate"
+        android:layout_alignBottom="@+id/actualDate"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        android:minHeight="16dp"
+        android:minWidth="105dp"
+        android:onClick="selectDate"
+        android:text="@string/buttonChangeDate"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/datePressureList"
+        android:layout_below="@+id/btnChangeDate"
+        android:layout_marginTop="15dp"
+        android:text="@string/time" />
+
+    <TextView
+        android:id="@+id/actualTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/time"
+        android:layout_alignBottom="@+id/time"
+        android:layout_alignLeft="@+id/actualDate"
+        android:text="@string/actualTime" />
+
+    <TextView
+        android:id="@+id/actualDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/datePressureList"
+        android:layout_alignBottom="@+id/datePressureList"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/time"
+        android:text="@string/actualDate" />
+
+    <Button
+        android:id="@+id/btnChangeTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/actualTime"
+        android:layout_alignBottom="@+id/actualTime"
+        android:layout_alignLeft="@+id/btnChangeDate"
+        android:minHeight="16dp"
+        android:minWidth="105dp"
+        android:onClick="selectTime"
+        android:text="@string/buttonChangeTime"
+        android:textSize="12sp" />
+
+    <NumberPicker
+        android:id="@+id/systolicNumberPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_alignLeft="@+id/time"
+        android:layout_below="@+id/btnChangeTime"
+        android:layout_marginTop="50dp" />
+
+    <NumberPicker
+        android:id="@+id/pulseNumberPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_alignRight="@+id/btnChangeTime"
+        android:layout_alignTop="@+id/diastolicNumberPicker" />
+
+    <NumberPicker
+        android:id="@+id/diastolicNumberPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_alignTop="@+id/systolicNumberPicker"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/diastolicTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/systolicTextView"
+        android:layout_centerHorizontal="true"
+        android:text="@string/diastolisch" />
+
+    <TextView
+        android:id="@+id/systolicTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/diastolicNumberPicker"
+        android:layout_alignRight="@+id/systolicNumberPicker"
+        android:layout_marginRight="4dp"
+        android:text="@string/systolisch" />
+
+    <TextView
+        android:id="@+id/pulseTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/diastolicTextView"
+        android:layout_alignBottom="@+id/diastolicTextView"
+        android:layout_alignLeft="@+id/pulseNumberPicker"
+        android:layout_marginLeft="24dp"
+        android:text="@string/pulse" />
+
+    <ListView
+        android:id="@+id/listViewPressure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/systolicNumberPicker"
+        android:layout_alignRight="@+id/pulseNumberPicker"
+        android:layout_below="@+id/systolicNumberPicker" >
+
+    </ListView>
+
+</RelativeLayout>

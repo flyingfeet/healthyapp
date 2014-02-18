@@ -1,0 +1,102 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/editPressureTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editPressureDateText"
+        android:layout_below="@+id/editPressureDate"
+        android:layout_marginTop="30dp"
+        android:labelFor="@+id/editPressureTime"
+        android:text="@string/time" />
+
+    <TextView
+        android:id="@+id/editPressureSystolicText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editPressureTimeText"
+        android:layout_below="@+id/editPressureTimeText"
+        android:layout_marginTop="30dp"
+        android:labelFor="@+id/editPressureSystolic"
+        android:text="@string/systolisch" />
+
+    <TextView
+        android:id="@+id/editPressureDiastolicText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editPressureSystolicText"
+        android:layout_below="@+id/editPressureSystolicText"
+        android:layout_marginTop="30dp"
+        android:labelFor="@+id/editPressureDiastolic"
+        android:text="@string/diastolisch" />
+
+    <TextView
+        android:id="@+id/editPressurePulseText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editPressureDiastolicText"
+        android:layout_below="@+id/editPressureDiastolicText"
+        android:layout_marginTop="30dp"
+        android:labelFor="@+id/editPressurePulse"
+        android:text="@string/pulse" />
+
+    <EditText
+        android:id="@+id/editPressureTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editPressureSystolicText"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:inputType="time" />
+
+    <EditText
+        android:id="@+id/editPressureSystolic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/editPressureSystolicText"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/editPressureDiastolic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/editPressureDiastolicText"
+        android:layout_alignLeft="@+id/editPressureSystolic"
+        android:ems="10"
+        android:inputType="number" >
+    </EditText>
+
+    <EditText
+        android:id="@+id/editPressurePulse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/editPressurePulseText"
+        android:layout_alignLeft="@+id/editPressureDiastolic"
+        android:ems="10"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/editPressureDateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:labelFor="@+id/editPressureDate"
+        android:text="@string/date" />
+
+    <EditText
+        android:id="@+id/editPressureDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/editPressureDateText"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:inputType="date" />
+
+</RelativeLayout>
