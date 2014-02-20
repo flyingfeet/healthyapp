@@ -14,10 +14,13 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 import de.flyingfeet.healthyapp.HealthyConstants;
 import de.flyingfeet.healthyapp.PressureList;
 import de.flyingfeet.healthyapp.R;
 import de.flyingfeet.healthyapp.datetime.CalenderUtil;
+import de.flyingfeet.healthyapp.models.Pressure;
+import de.flyingfeet.healthyapp.util.DataStorage;
 import de.flyingfeet.healthyapp.util.NavigationUtil;
 import de.flyingfeet.healthyapp.util.NumberPickerUtil;
 import de.flyingfeet.healthyapp.util.StorageUtil;
@@ -25,7 +28,6 @@ import de.flyingfeet.healthyapp.util.StorageUtil;
 public class PressureFragment extends Fragment
 {
 	private CalenderUtil calenderUtil = new CalenderUtil();
-	private StorageUtil storageUtil;
 	private NavigationUtil navigationUtil;
 
 	public PressureFragment()
@@ -35,7 +37,6 @@ public class PressureFragment extends Fragment
 	@Override
 	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
-		storageUtil = new StorageUtil( getActivity() );
 		navigationUtil = new NavigationUtil( getActivity(), getFragmentManager() );
 
 		View rootView = inflater.inflate( R.layout.pressure_fragment, container, false );
@@ -90,6 +91,7 @@ public class PressureFragment extends Fragment
 		{
 		case R.id.save:
 			savePressure();
+			DataStorage.getInstance().getPressures( true );
 			navigationUtil.selectItem( 0 );
 			return true;
 		default:
@@ -107,12 +109,13 @@ public class PressureFragment extends Fragment
 
 	private void loadNumberPickers()
 	{
-		loadSystolicNumberPicker();
-		loadDiastolicNumberPicker();
-		loadPulseNumberPicker();
+		Pressure latestPressure = DataStorage.getInstance().getLatestPressure();
+		loadSystolicNumberPicker( latestPressure.getSystolic() );
+		loadDiastolicNumberPicker( latestPressure.getDiastolic() );
+		loadPulseNumberPicker( latestPressure.getPulse() );
 	}
 
-	private void loadSystolicNumberPicker()
+	private void loadSystolicNumberPicker( String value )
 	{
 		NumberPicker systolicNumberPicker = (NumberPicker) getActivity().findViewById( R.id.systolicNumberPicker );
 
@@ -122,10 +125,10 @@ public class PressureFragment extends Fragment
 		systolicNumberPicker.setMinValue( 0 );
 		systolicNumberPicker.setWrapSelectorWheel( false );
 		systolicNumberPicker.setDisplayedValues( nums );
-		systolicNumberPicker.setValue( 120 );
+		systolicNumberPicker.setValue( Integer.parseInt( value ) );
 	}
 
-	private void loadDiastolicNumberPicker()
+	private void loadDiastolicNumberPicker( String value )
 	{
 		NumberPicker diastolicNumberPicker = (NumberPicker) getActivity().findViewById( R.id.diastolicNumberPicker );
 
@@ -135,10 +138,10 @@ public class PressureFragment extends Fragment
 		diastolicNumberPicker.setMinValue( 0 );
 		diastolicNumberPicker.setWrapSelectorWheel( false );
 		diastolicNumberPicker.setDisplayedValues( nums );
-		diastolicNumberPicker.setValue( 80 );
+		diastolicNumberPicker.setValue( Integer.parseInt( value ) );
 	}
 
-	private void loadPulseNumberPicker()
+	private void loadPulseNumberPicker( String value )
 	{
 		NumberPicker pulseNumberPicker = (NumberPicker) getActivity().findViewById( R.id.pulseNumberPicker );
 
@@ -148,7 +151,7 @@ public class PressureFragment extends Fragment
 		pulseNumberPicker.setMinValue( 0 );
 		pulseNumberPicker.setWrapSelectorWheel( false );
 		pulseNumberPicker.setDisplayedValues( nums );
-		pulseNumberPicker.setValue( 70 );
+		pulseNumberPicker.setValue( Integer.parseInt( value ) );
 	}
 
 	private void savePressure()
@@ -158,7 +161,17 @@ public class PressureFragment extends Fragment
 		NumberPicker diaPicker = (NumberPicker) getActivity().findViewById( R.id.diastolicNumberPicker );
 		NumberPicker sysPicker = (NumberPicker) getActivity().findViewById( R.id.systolicNumberPicker );
 		NumberPicker pulsePicker = (NumberPicker) getActivity().findViewById( R.id.pulseNumberPicker );
+
+		StorageUtil storageUtil = new StorageUtil();
 		String data = storageUtil.makeDataToString( actualDate, actualTime, sysPicker, diaPicker, pulsePicker );
-		storageUtil.storePressure( data );
+		boolean storePressure = storageUtil.storePressure( data );
+		if ( !storePressure )
+		{
+			Toast.makeText( getActivity(), "Beim Speichern ist ein Fehler aufgetreten...", Toast.LENGTH_SHORT ).show();
+		}
+		else
+		{
+			Toast.makeText( getActivity(), "Speichern war erfolgreich.", Toast.LENGTH_SHORT ).show();
+		}
 	}
 }

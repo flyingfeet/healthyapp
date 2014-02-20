@@ -70,7 +70,7 @@
     <NumberPicker
         android:id="@+id/systolicNumberPicker"
         android:layout_width="wrap_content"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         android:layout_alignLeft="@+id/time"
         android:layout_below="@+id/btnChangeTime"
         android:layout_marginTop="50dp" />
@@ -78,14 +78,14 @@
     <NumberPicker
         android:id="@+id/pulseNumberPicker"
         android:layout_width="wrap_content"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         android:layout_alignRight="@+id/btnChangeTime"
         android:layout_alignTop="@+id/diastolicNumberPicker" />
 
     <NumberPicker
         android:id="@+id/diastolicNumberPicker"
         android:layout_width="wrap_content"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         android:layout_alignTop="@+id/systolicNumberPicker"
         android:layout_centerHorizontal="true" />
 

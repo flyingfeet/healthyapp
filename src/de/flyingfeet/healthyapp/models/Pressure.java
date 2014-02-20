@@ -16,18 +16,18 @@ public class Pressure implements Comparable<Pressure>, Serializable
 	private String diastolic;
 	private String pulse;
 
-	public Pressure(String line)
+	public Pressure( String line )
 	{
-		parseLine(line);
+		parseLine( line );
 	}
 
-	private void parseLine(String line)
+	private void parseLine( String line )
 	{
-		String[] split = line.split(";");
+		String[] split = line.split( ";" );
 		String dateAsString = split[0];
-		String[] splittedDate = dateAsString.split("\\.");
-		Calendar calendar = new GregorianCalendar(parseInt(splittedDate[2]), parseInt(splittedDate[1]) - 1,
-				parseInt(splittedDate[0]));
+		String[] splittedDate = dateAsString.split( "\\." );
+		Calendar calendar = new GregorianCalendar( parseInt( splittedDate[2] ), parseInt( splittedDate[1] ) - 1,
+				parseInt( splittedDate[0] ) );
 		date = calendar.getTime();
 		this.time = split[1];
 		this.systolic = split[2];
@@ -35,16 +35,16 @@ public class Pressure implements Comparable<Pressure>, Serializable
 		this.pulse = split[4];
 	}
 
-	private int parseInt(String s)
+	private int parseInt( String s )
 	{
-		int i = Integer.parseInt(s);
+		int i = Integer.parseInt( s );
 		return i;
 	}
 
 	public static Comparator<Pressure> PressureDateComparator = new Comparator<Pressure>()
 	{
 
-		public int compare(Pressure pressure1, Pressure pressure2)
+		public int compare( Pressure pressure1, Pressure pressure2 )
 		{
 
 			Date date1 = pressure1.getDate();
@@ -52,14 +52,14 @@ public class Pressure implements Comparable<Pressure>, Serializable
 			String time1 = pressure1.getTime();
 			String time2 = pressure2.getTime();
 
-			int compareDate = date2.compareTo(date1);
-			if (compareDate != 0)
+			int compareDate = date2.compareTo( date1 );
+			if ( compareDate != 0 )
 			{
 				return compareDate;
 			}
 
 			// return date1.compareTo(date2);
-			return time2.compareTo(time1);
+			return time2.compareTo( time1 );
 		}
 
 	};
@@ -69,7 +69,7 @@ public class Pressure implements Comparable<Pressure>, Serializable
 		return date;
 	}
 
-	public void setDate(Date date)
+	public void setDate( Date date )
 	{
 		this.date = date;
 	}
@@ -79,7 +79,7 @@ public class Pressure implements Comparable<Pressure>, Serializable
 		return time;
 	}
 
-	public void setTime(String time)
+	public void setTime( String time )
 	{
 		this.time = time;
 	}
@@ -89,7 +89,7 @@ public class Pressure implements Comparable<Pressure>, Serializable
 		return systolic;
 	}
 
-	public void setSystolic(String systolic)
+	public void setSystolic( String systolic )
 	{
 		this.systolic = systolic;
 	}
@@ -99,7 +99,7 @@ public class Pressure implements Comparable<Pressure>, Serializable
 		return diastolic;
 	}
 
-	public void setDiastolic(String diastolic)
+	public void setDiastolic( String diastolic )
 	{
 		this.diastolic = diastolic;
 	}
@@ -109,14 +109,14 @@ public class Pressure implements Comparable<Pressure>, Serializable
 		return pulse;
 	}
 
-	public void setPulse(String pulse)
+	public void setPulse( String pulse )
 	{
 		this.pulse = pulse;
 	}
 
 	@Override
-	public int compareTo(Pressure anotherPressure)
+	public int compareTo( Pressure anotherPressure )
 	{
-		return this.getDate().compareTo(anotherPressure.getDate());
+		return this.getDate().compareTo( anotherPressure.getDate() );
 	}
 }

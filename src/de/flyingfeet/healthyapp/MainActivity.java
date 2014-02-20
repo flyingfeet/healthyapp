@@ -38,15 +38,29 @@ public class MainActivity extends RoboFragmentActivity
 	private CharSequence drawerTitle;
 	private CharSequence mTitle;
 
+	public static MainActivity activity;
+
 	@Override
 	protected void onCreate( Bundle savedInstanceState )
 	{
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.activity_main );
 
+		activity = this;
+
 		navigationUtil = new NavigationUtil( this, getFragmentManager() );
 		mTitle = drawerTitle = getTitle();
 
+		initDrawer();
+
+		if ( savedInstanceState == null )
+		{
+			navigationUtil.selectItem( 0 );
+		}
+	}
+
+	private void initDrawer()
+	{
 		drawerLayout.setDrawerShadow( R.drawable.drawer_shadow, GravityCompat.START );
 		drawerList.setAdapter( new ArrayAdapter<String>( this, R.layout.drawer_list_item, healthyArray ) );
 		drawerList.setOnItemClickListener( new DrawerItemClickListener() );
@@ -71,11 +85,6 @@ public class MainActivity extends RoboFragmentActivity
 			}
 		};
 		drawerLayout.setDrawerListener( drawerToggle );
-
-		if ( savedInstanceState == null )
-		{
-			navigationUtil.selectItem( 0 );
-		}
 	}
 
 	@Override

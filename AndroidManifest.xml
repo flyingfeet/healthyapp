@@ -35,6 +35,9 @@
             android:label="@string/pressures"
             android:parentActivityName="de.flyingfeet.healthyapp.MainActivity" >
         </activity>
+
+        <service android:name="de.flyingfeet.healthyapp.services.DataService" >
+        </service>
     </application>
 
 </manifest>

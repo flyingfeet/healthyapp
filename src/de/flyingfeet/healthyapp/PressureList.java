@@ -9,14 +9,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import de.flyingfeet.healthyapp.adapters.PressureAdapter;
 import de.flyingfeet.healthyapp.models.Pressure;
-import de.flyingfeet.healthyapp.util.StorageUtil;
+import de.flyingfeet.healthyapp.util.DataStorage;
 
 public class PressureList extends RoboActivity
 {
 	@InjectView(R.id.listViewPressure)
 	ListView listview;
-
-	private StorageUtil storageUtil;
 
 	@Override
 	public void onCreate( Bundle bundle )
@@ -24,13 +22,11 @@ public class PressureList extends RoboActivity
 		super.onCreate( bundle );
 		setContentView( R.layout.pressure_list );
 
-		storageUtil = new StorageUtil( this );
-		Pressure[] values = storageUtil.parsePressure();
-		PressureAdapter adapter = new PressureAdapter( this, values );
+		Pressure[] pressures = DataStorage.getInstance().getPressures( false );
+		PressureAdapter adapter = new PressureAdapter( this, pressures );
 		listview.setAdapter( adapter );
 		listview.setOnItemClickListener( new AdapterView.OnItemClickListener()
 		{
-
 			@Override
 			public void onItemClick( AdapterView<?> parent, View view, int position, long id )
 			{

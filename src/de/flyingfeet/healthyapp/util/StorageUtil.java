@@ -1,33 +1,20 @@
 package de.flyingfeet.healthyapp.util;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.ArrayList;
-import java.util.Arrays;
 
-import android.app.Activity;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.Toast;
-import de.flyingfeet.healthyapp.models.Pressure;
 
 public class StorageUtil
 {
-	private Activity context;
-
-	public StorageUtil( Activity context )
+	public StorageUtil()
 	{
-		this.context = context;
 	}
 
-	public boolean isExternalStorageWritable()
+	public static boolean isExternalStorageWritable()
 	{
 		String state = Environment.getExternalStorageState();
 		if ( Environment.MEDIA_MOUNTED.equals( state ) )
@@ -37,7 +24,7 @@ public class StorageUtil
 		return false;
 	}
 
-	public boolean isExternalStorageReadable()
+	public static boolean isExternalStorageReadable()
 	{
 		String state = Environment.getExternalStorageState();
 		if ( Environment.MEDIA_MOUNTED.equals( state ) || Environment.MEDIA_MOUNTED_READ_ONLY.equals( state ) )
@@ -73,74 +60,31 @@ public class StorageUtil
 		return stringBuffer.toString();
 	}
 
-	public File storePressure( String data )
+	public boolean storePressure( String data )
 	{
-		File myFile = getPressureFile();
-		try
-		{
-			long fileLength = myFile.length();
-			RandomAccessFile raf = new RandomAccessFile( myFile, "rw" );
-			raf.seek( fileLength );
-			raf.writeBytes( data );
-			raf.close();
-			Log.i( "Save Pressure", "Done writing SD 'mysdfile.txt'" );
-		}
-		catch ( Exception e )
-		{
-			Toast.makeText( context, "Beim Speichern ist ein Fehler aufgetreten...", Toast.LENGTH_SHORT ).show();
-		}
-		Toast.makeText( context, "Speichern war erfolgreich.", Toast.LENGTH_SHORT ).show();
-		return myFile;
-	}
-
-	public Pressure[] parsePressure()
-	{
-		ArrayList<Pressure> list = new ArrayList<Pressure>();
-
-		BufferedReader bufferedReader = null;
-		try
-		{
-			String currentLine;
-			FileReader fileReader = new FileReader( getPressureFile() );
-			bufferedReader = new BufferedReader( fileReader );
-			while ( ( currentLine = bufferedReader.readLine() ) != null )
-			{
-				list.add( new Pressure( currentLine ) );
-			}
-		}
-		catch ( FileNotFoundException e )
-		{
-			Toast.makeText( context, "Datei nicht gefunden...", Toast.LENGTH_SHORT ).show();
-		}
-		catch ( IOException e )
-		{
-			Toast.makeText( context, "Ein Fehler ist aufgetreten...", Toast.LENGTH_SHORT ).show();
-		}
-		finally
+		if ( isExternalStorageWritable() )
 		{
 			try
 			{
-				if ( bufferedReader != null )
-					bufferedReader.close();
+				File myFile = getPressureFile();
+				long fileLength = myFile.length();
+				RandomAccessFile raf = new RandomAccessFile( myFile, "rw" );
+				raf.seek( fileLength );
+				raf.writeBytes( data );
+				raf.close();
 			}
-			catch ( IOException ex )
+			catch ( Exception e )
 			{
-				Toast.makeText( context, "Ein Fehler ist aufgetreten...", Toast.LENGTH_SHORT ).show();
+				return false;
 			}
+
+			return true;
 		}
 
-		Pressure[] values = new Pressure[list.size()];
-
-		for ( int i = 0; i < values.length; i++ )
-		{
-			values[i] = list.get( i );
-		}
-		Arrays.sort( values, Pressure.PressureDateComparator );
-
-		return values;
+		return false;
 	}
 
-	public File getPressureFile()
+	public static File getPressureFile()
 	{
 		return new File( Environment.getExternalStorageDirectory().getPath() + "/mysdfile.csv" );
 	}
