@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import de.flyingfeet.healthyapp.Preferences;
 
 public class StorageUtil
 {
@@ -86,6 +87,9 @@ public class StorageUtil
 
 	public static File getPressureFile()
 	{
-		return new File( Environment.getExternalStorageDirectory().getPath() + "/mysdfile.csv" );
+		String storagePath = Environment.getExternalStorageDirectory().getParent();
+		File file = new File( storagePath + File.separator + Preferences.dataLocation + File.separator
+				+ Preferences.pressureFile + ".csv" );
+		return file;
 	}
 }

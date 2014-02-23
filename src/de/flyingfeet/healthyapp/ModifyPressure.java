@@ -1,6 +1,5 @@
 package de.flyingfeet.healthyapp;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -21,8 +20,8 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import de.flyingfeet.healthyapp.datetime.CalenderUtil;
 import de.flyingfeet.healthyapp.models.Pressure;
+import de.flyingfeet.healthyapp.util.CalenderUtil;
 import de.flyingfeet.healthyapp.util.NumberPickerUtil;
 
 public class ModifyPressure extends RoboActivity
@@ -48,7 +47,6 @@ public class ModifyPressure extends RoboActivity
 	@InjectResource(R.string.buttonClose)
 	String close;
 
-	SimpleDateFormat formatter = new SimpleDateFormat( "dd.MM.yyyy" );
 	CalenderUtil calenderUtil = new CalenderUtil();
 
 	@Override
@@ -94,7 +92,7 @@ public class ModifyPressure extends RoboActivity
 	private void initDate( Pressure pressure )
 	{
 		final DatePickerDialog datePickerDialog = initializeDatePickerDialog();
-		date.setText( formatter.format( pressure.getDate() ) );
+		date.setText( calenderUtil.getFormattedDateAsString( pressure.getDate() ) );
 		date.setOnFocusChangeListener( new View.OnFocusChangeListener()
 		{
 
@@ -237,7 +235,7 @@ public class ModifyPressure extends RoboActivity
 				Integer month = Integer.valueOf( picker.getDatePicker().getMonth() );
 				Integer year = Integer.valueOf( picker.getDatePicker().getYear() );
 				Calendar calendar = new GregorianCalendar( year, month, day );
-				date.setText( formatter.format( calendar.getTime() ) );
+				date.setText( calenderUtil.getFormattedDateAsString( calendar.getTime() ) );
 			}
 		} );
 

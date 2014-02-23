@@ -18,8 +18,8 @@ import android.widget.Toast;
 import de.flyingfeet.healthyapp.HealthyConstants;
 import de.flyingfeet.healthyapp.PressureList;
 import de.flyingfeet.healthyapp.R;
-import de.flyingfeet.healthyapp.datetime.CalenderUtil;
 import de.flyingfeet.healthyapp.models.Pressure;
+import de.flyingfeet.healthyapp.util.CalenderUtil;
 import de.flyingfeet.healthyapp.util.DataStorage;
 import de.flyingfeet.healthyapp.util.NavigationUtil;
 import de.flyingfeet.healthyapp.util.NumberPickerUtil;
@@ -91,7 +91,7 @@ public class PressureFragment extends Fragment
 		{
 		case R.id.save:
 			savePressure();
-			DataStorage.getInstance().getPressures( true );
+			DataStorage.getInstance().reloadPressures();
 			navigationUtil.selectItem( 0 );
 			return true;
 		default:
@@ -110,9 +110,19 @@ public class PressureFragment extends Fragment
 	private void loadNumberPickers()
 	{
 		Pressure latestPressure = DataStorage.getInstance().getLatestPressure();
-		loadSystolicNumberPicker( latestPressure.getSystolic() );
-		loadDiastolicNumberPicker( latestPressure.getDiastolic() );
-		loadPulseNumberPicker( latestPressure.getPulse() );
+		if ( latestPressure != null )
+		{
+			loadSystolicNumberPicker( latestPressure.getSystolic() );
+			loadDiastolicNumberPicker( latestPressure.getDiastolic() );
+			loadPulseNumberPicker( latestPressure.getPulse() );
+		}
+		else
+		{
+			// Default Werte laden, falls csv-Datei nicht existiert
+			loadSystolicNumberPicker( "120" );
+			loadDiastolicNumberPicker( "80" );
+			loadPulseNumberPicker( "70" );
+		}
 	}
 
 	private void loadSystolicNumberPicker( String value )

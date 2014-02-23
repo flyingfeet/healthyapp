@@ -22,7 +22,7 @@ public class PressureList extends RoboActivity
 		super.onCreate( bundle );
 		setContentView( R.layout.pressure_list );
 
-		Pressure[] pressures = DataStorage.getInstance().getPressures( false );
+		Pressure[] pressures = DataStorage.getInstance().getPressures();
 		PressureAdapter adapter = new PressureAdapter( this, pressures );
 		listview.setAdapter( adapter );
 		listview.setOnItemClickListener( new AdapterView.OnItemClickListener()

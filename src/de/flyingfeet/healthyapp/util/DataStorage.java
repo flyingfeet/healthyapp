@@ -42,7 +42,7 @@ public class DataStorage
 		}
 		catch ( FileNotFoundException e )
 		{
-			Toast.makeText( MainActivity.activity, "Datei konnte nicht gefunden werden.", Toast.LENGTH_SHORT ).show();
+//			Toast.makeText( MainActivity.activity, "Datei konnte nicht gefunden werden.", Toast.LENGTH_SHORT ).show();
 		}
 		catch ( IOException e )
 		{
@@ -74,9 +74,14 @@ public class DataStorage
 		return values;
 	}
 
-	public Pressure[] getPressures( boolean forceReload )
+	public void reloadPressures()
 	{
-		if ( isListNullOrEmpty() || forceReload )
+		pressures = parsePressure();
+	}
+
+	public Pressure[] getPressures()
+	{
+		if ( isListNullOrEmpty() )
 		{
 			pressures = parsePressure();
 		}
@@ -91,7 +96,14 @@ public class DataStorage
 			pressures = parsePressure();
 		}
 
-		return pressures[0];
+		if ( pressures.length > 0 )
+		{
+			return pressures[0];
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	private boolean isListNullOrEmpty()

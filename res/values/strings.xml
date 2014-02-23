@@ -30,5 +30,14 @@
     <string name="buttonChangeTime">Uhrzeit ändern</string>
     <string name="buttonOk">OK</string>
     <string name="buttonClose">Schließen</string>
+    
+    <string name="generalSettings">Allgemeine Einstellungen</string>
+    <string name="filenameSettings">Dateinamen</string>
+    <string name="dataLocationTitle">Speicherort</string>
+    <string name="dataLocationSummary">Wähle den Speicherort der CSV-Dateien.</string>
+    <string name="pressureFileTitle">Blutdruck</string>
+    <string name="pressureFileSummary">Wähle den Dateinamen für die Blutdruckwerte.</string>
+    <string name="sugarFileTitle">Blutzucker</string>
+    <string name="sugarFileSummary">Wähle den Dateinamen für die Blutzuckerwerte.</string>
 
 </resources>

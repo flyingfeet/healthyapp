@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import de.flyingfeet.healthyapp.HealthyConstants;
 import de.flyingfeet.healthyapp.R;
-import de.flyingfeet.healthyapp.datetime.CalenderUtil;
+import de.flyingfeet.healthyapp.util.CalenderUtil;
 import de.flyingfeet.healthyapp.util.NavigationUtil;
 import de.flyingfeet.healthyapp.util.NumberPickerUtil;
 

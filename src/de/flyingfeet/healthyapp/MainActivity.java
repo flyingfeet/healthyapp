@@ -6,6 +6,7 @@ import roboguice.inject.InjectView;
 import android.app.DialogFragment;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,8 +17,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import de.flyingfeet.healthyapp.datetime.ChangeDateFragment;
-import de.flyingfeet.healthyapp.datetime.ChangeTimeFragment;
+import de.flyingfeet.healthyapp.fragments.ChangeDateFragment;
+import de.flyingfeet.healthyapp.fragments.ChangeTimeFragment;
 import de.flyingfeet.healthyapp.util.NavigationUtil;
 
 public class MainActivity extends RoboFragmentActivity
@@ -45,6 +46,7 @@ public class MainActivity extends RoboFragmentActivity
 	{
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.activity_main );
+		PreferenceManager.setDefaultValues( this, R.xml.preferences, false );
 
 		activity = this;
 
@@ -57,6 +59,8 @@ public class MainActivity extends RoboFragmentActivity
 		{
 			navigationUtil.selectItem( 0 );
 		}
+
+		Preferences.init( this );
 	}
 
 	private void initDrawer()
@@ -68,9 +72,7 @@ public class MainActivity extends RoboFragmentActivity
 		getActionBar().setDisplayHomeAsUpEnabled( true );
 		getActionBar().setHomeButtonEnabled( true );
 
-		drawerToggle = new ActionBarDrawerToggle( this, /* host Activity */
-		drawerLayout, /* DrawerLayout object */
-		R.drawable.ic_drawer /* nav drawer image to replace 'Up' caret */, 0, 0 )
+		drawerToggle = new ActionBarDrawerToggle( this, drawerLayout, R.drawable.ic_drawer, 0, 0 )
 		{
 			public void onDrawerClosed( View view )
 			{
@@ -113,6 +115,9 @@ public class MainActivity extends RoboFragmentActivity
 		switch ( item.getItemId() )
 		{
 		case R.id.action_settings:
+			getFragmentManager().beginTransaction().replace( R.id.content_frame, new Preferences() ).addToBackStack( null )
+					.commit();
+			setTitle( getString( R.string.action_settings ) );
 			return true;
 		default:
 			return super.onOptionsItemSelected( item );

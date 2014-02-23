@@ -1,4 +1,4 @@
-package de.flyingfeet.healthyapp.datetime;
+package de.flyingfeet.healthyapp.fragments;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -6,6 +6,7 @@ import android.app.TimePickerDialog.OnTimeSetListener;
 import android.os.Bundle;
 import android.widget.TimePicker;
 import de.flyingfeet.healthyapp.R;
+import de.flyingfeet.healthyapp.util.CalenderUtil;
 
 public class ChangeTimeFragment extends DialogFragment implements
 		OnTimeSetListener {

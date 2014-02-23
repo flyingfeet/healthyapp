@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="@string/generalSettings" >
+        <ListPreference
+            android:defaultValue="sdcard0"
+            android:entries="@array/dataLocation_array"
+            android:entryValues="@array/dataLocation_array"
+            android:key="dataLocation"
+            android:summary="@string/dataLocationSummary"
+            android:title="@string/dataLocationTitle" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/filenameSettings" >
+        <EditTextPreference
+            android:defaultValue="blutdruckwerte"
+            android:key="pressureFile"
+            android:summary="@string/pressureFileSummary"
+            android:title="@string/pressureFileTitle" />
+        
+        <EditTextPreference
+            android:defaultValue="blutzuckerwerte"
+            android:key="sugarFile"
+            android:summary="@string/sugarFileSummary"
+            android:title="@string/sugarFileTitle" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

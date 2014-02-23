@@ -1,7 +1,10 @@
-package de.flyingfeet.healthyapp.datetime;
+package de.flyingfeet.healthyapp.util;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import android.app.Activity;
@@ -9,17 +12,20 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.view.View;
 import android.widget.TextView;
+import de.flyingfeet.healthyapp.HealthyConstants;
 
 public class CalenderUtil implements Serializable
 {
 	private static final long serialVersionUID = -4881485466493661454L;
 
 	private Calendar calendar;
+	private SimpleDateFormat formatter;
 
 	public CalenderUtil()
 	{
 		calendar = Calendar.getInstance();
 		calendar.setTimeZone( TimeZone.getTimeZone( "GMT+1" ) );
+		formatter = new SimpleDateFormat( HealthyConstants.DATE_FORMAT, Locale.getDefault() );
 	}
 
 	public DatePickerDialog getDatePickerDialog( Activity activity, DatePickerDialog.OnDateSetListener listener )
@@ -60,6 +66,11 @@ public class CalenderUtil implements Serializable
 	public int getMinute()
 	{
 		return calendar.get( Calendar.MINUTE );
+	}
+
+	public String getFormattedDateAsString( Date date )
+	{
+		return formatter.format( date );
 	}
 
 	public void setTextOnView( View view )

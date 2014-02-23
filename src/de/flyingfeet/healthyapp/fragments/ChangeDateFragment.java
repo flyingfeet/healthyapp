@@ -1,4 +1,4 @@
-package de.flyingfeet.healthyapp.datetime;
+package de.flyingfeet.healthyapp.fragments;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.os.Bundle;
 import android.widget.DatePicker;
 import de.flyingfeet.healthyapp.R;
+import de.flyingfeet.healthyapp.util.CalenderUtil;
 
 public class ChangeDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener
 {
