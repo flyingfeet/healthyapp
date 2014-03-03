@@ -35,9 +35,11 @@
             android:label="@string/pressures"
             android:parentActivityName="de.flyingfeet.healthyapp.MainActivity" >
         </activity>
-
-        <service android:name="de.flyingfeet.healthyapp.services.DataService" >
-        </service>
+        <activity
+            android:name="de.flyingfeet.healthyapp.SugarList"
+            android:label="@string/sugars"
+            android:parentActivityName="de.flyingfeet.healthyapp.MainActivity" >
+        </activity>
     </application>
 
 </manifest>

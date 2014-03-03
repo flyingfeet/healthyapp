@@ -1,0 +1,42 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingBottom="12dp"
+    android:paddingTop="12dp" >
+
+    <TextView
+        android:id="@+id/listDateSugar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/actualDate" />
+
+    <TextView
+        android:id="@+id/listTimeSugar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/listDateSugar"
+        android:text="@string/actualTime" />
+
+    <TextView
+        android:id="@+id/listSugarText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/listTimeSugar"
+        android:text="@string/sugar" />
+
+    <TextView
+        android:id="@+id/listSugar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/listSugarText"
+        android:layout_alignBottom="@+id/listSugarText"
+        android:layout_marginLeft="1dp"
+        android:layout_toRightOf="@+id/listSugarText"
+        android:textStyle="bold" />
+
+</RelativeLayout>

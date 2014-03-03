@@ -1,6 +1,7 @@
 package de.flyingfeet.healthyapp.fragments;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
@@ -16,9 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import de.flyingfeet.healthyapp.HealthyConstants;
 import de.flyingfeet.healthyapp.R;
+import de.flyingfeet.healthyapp.SugarList;
+import de.flyingfeet.healthyapp.models.Sugar;
 import de.flyingfeet.healthyapp.util.CalenderUtil;
+import de.flyingfeet.healthyapp.util.DataStorage;
 import de.flyingfeet.healthyapp.util.NavigationUtil;
 import de.flyingfeet.healthyapp.util.NumberPickerUtil;
+import de.flyingfeet.healthyapp.util.StorageUtil;
 
 public class SugarFragment extends Fragment
 {
@@ -56,8 +61,8 @@ public class SugarFragment extends Fragment
 			@Override
 			public void onClick( View view )
 			{
-//				Intent intent = new Intent( getActivity(), PressureList.class );
-//				startActivity( intent );
+				Intent intent = new Intent( getActivity(), SugarList.class );
+				startActivity( intent );
 			}
 		} );
 	}
@@ -85,7 +90,8 @@ public class SugarFragment extends Fragment
 		switch ( item.getItemId() )
 		{
 		case R.id.save:
-			Toast.makeText( getActivity(), "Speichern kommt noch...", Toast.LENGTH_SHORT ).show();
+			saveSugar();
+			DataStorage.getInstance().reloadSugars();
 			navigationUtil.selectItem( 1 );
 			return true;
 		default:
@@ -103,6 +109,7 @@ public class SugarFragment extends Fragment
 
 	private void loadNumberPicker()
 	{
+		Sugar latestSugar = DataStorage.getInstance().getLatestSugar();
 		NumberPicker sugarNumberPicker = (NumberPicker) getActivity().findViewById( R.id.sugarNumberPicker );
 
 		String[] nums = NumberPickerUtil.loadNumberPickerValues( 200 );
@@ -111,6 +118,32 @@ public class SugarFragment extends Fragment
 		sugarNumberPicker.setMinValue( 0 );
 		sugarNumberPicker.setWrapSelectorWheel( false );
 		sugarNumberPicker.setDisplayedValues( nums );
-		sugarNumberPicker.setValue( 100 );
+		if ( latestSugar != null )
+		{
+			sugarNumberPicker.setValue( Integer.parseInt( latestSugar.getSugar() ) );
+		}
+		else
+		{
+			sugarNumberPicker.setValue( 100 );
+		}
+	}
+
+	private void saveSugar()
+	{
+		TextView actualDate = (TextView) getActivity().findViewById( R.id.actualDate );
+		TextView actualTime = (TextView) getActivity().findViewById( R.id.actualTime );
+		NumberPicker sugarPicker = (NumberPicker) getActivity().findViewById( R.id.sugarNumberPicker );
+
+		StorageUtil storageUtil = new StorageUtil();
+		String data = storageUtil.makeDataToString( actualDate, actualTime, sugarPicker );
+		boolean storeSugar = storageUtil.storeSugar( data );
+		if ( !storeSugar )
+		{
+			Toast.makeText( getActivity(), "Beim Speichern ist ein Fehler aufgetreten...", Toast.LENGTH_SHORT ).show();
+		}
+		else
+		{
+			Toast.makeText( getActivity(), "Speichern war erfolgreich.", Toast.LENGTH_SHORT ).show();
+		}
 	}
 }

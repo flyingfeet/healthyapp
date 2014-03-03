@@ -22,7 +22,9 @@
     <string name="p">P:</string>
     <string name="pressures">Blutdruckwerte</string>
     
-    <string name="sugar">Blutzuckerwert:</string>
+    <string name="sugarValue">Blutzuckerwert:</string>
+    <string name="sugar">Zucker:</string>
+    <string name="sugars">Blutzuckerwerte</string>
     
     <string name="buttonListPressures">Blutdruckwerte anzeigen</string>
     <string name="buttonListSugars">Blutzuckerwerte anzeigen</string>

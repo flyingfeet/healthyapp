@@ -25,19 +25,19 @@ import de.flyingfeet.healthyapp.util.StorageUtil;
 
 public class Preferences extends PreferenceFragment implements OnPreferenceChangeListener
 {
-	private static boolean			initialized			= false;
+	private static boolean initialized = false;
 
-	public static String				dataLocation;
-	public static String				pressureFile;
-	public static String				sugarFile;
+	public static String dataLocation;
+	public static String pressureFile;
+	public static String sugarFile;
 
-	private static final String	DATA_LOCATION_KEY	= "dataLocation";
-	private static final String	PRESSURE_FILE_KEY	= "pressureFile";
-	private static final String	SUGAR_FILE_KEY		= "sugarFile";
+	private static final String DATA_LOCATION_KEY = "dataLocation";
+	private static final String PRESSURE_FILE_KEY = "pressureFile";
+	private static final String SUGAR_FILE_KEY = "sugarFile";
 
-	private ListPreference			dataLocationPref;
-	private EditTextPreference		pressureFilePref;
-	private EditTextPreference		sugarFilePref;
+	private ListPreference dataLocationPref;
+	private EditTextPreference pressureFilePref;
+	private EditTextPreference sugarFilePref;
 
 	@Override
 	public void onCreate( Bundle savedInstanceState )
@@ -85,9 +85,13 @@ public class Preferences extends PreferenceFragment implements OnPreferenceChang
 		File fileDest = null;
 		if ( preference.equals( dataLocationPref ) )
 		{
-			fileSrc = StorageUtil.getPressureFile();
+			File pressureFileSrc = StorageUtil.getPressureFile();
+			File sugarFileSrc = StorageUtil.getSugarFile();
 			dataLocation = (String) newValue;
-			fileDest = StorageUtil.getPressureFile();
+			File pressureFileDest = StorageUtil.getPressureFile();
+			File sugarFileDest = StorageUtil.getSugarFile();
+			copyFile( pressureFileSrc, pressureFileDest );
+			copyFile( sugarFileSrc, sugarFileDest );
 			editor.putString( DATA_LOCATION_KEY, dataLocation );
 		}
 		else if ( preference.equals( pressureFilePref ) )
@@ -99,9 +103,9 @@ public class Preferences extends PreferenceFragment implements OnPreferenceChang
 		}
 		else if ( preference.equals( sugarFilePref ) )
 		{
-			fileSrc = StorageUtil.getPressureFile();
+			fileSrc = StorageUtil.getSugarFile();
 			sugarFile = (String) newValue;
-			fileDest = StorageUtil.getPressureFile();
+			fileDest = StorageUtil.getSugarFile();
 			editor.putString( SUGAR_FILE_KEY, sugarFile );
 		}
 		if ( fileSrc != null && fileDest != null )

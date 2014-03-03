@@ -82,7 +82,7 @@
         android:layout_below="@+id/btnChangeTime"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="27dp"
-        android:text="@string/sugar" />
+        android:text="@string/sugarValue" />
 
     <Button
         android:id="@+id/buttonListSugars"

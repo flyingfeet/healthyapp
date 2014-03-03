@@ -35,6 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/listSystolicText"
         android:layout_alignBottom="@+id/listSystolicText"
+        android:layout_marginLeft="1dp"
         android:layout_toRightOf="@+id/listSystolicText"
         android:textStyle="bold" />
 
@@ -54,6 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/listDiastolicText"
         android:layout_alignBottom="@+id/listDiastolicText"
+        android:layout_marginLeft="1dp"
         android:layout_toRightOf="@+id/listDiastolicText"
         android:textStyle="bold" />
 
@@ -73,6 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/listPulseText"
         android:layout_alignBottom="@+id/listPulseText"
+        android:layout_marginLeft="1dp"
         android:layout_toRightOf="@+id/listPulseText"
         android:textStyle="bold" />
 

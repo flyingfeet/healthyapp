@@ -65,31 +65,68 @@ public class StorageUtil
 	{
 		if ( isExternalStorageWritable() )
 		{
-			try
-			{
-				File myFile = getPressureFile();
-				long fileLength = myFile.length();
-				RandomAccessFile raf = new RandomAccessFile( myFile, "rw" );
-				raf.seek( fileLength );
-				raf.writeBytes( data );
-				raf.close();
-			}
-			catch ( Exception e )
-			{
-				return false;
-			}
+			File file = getPressureFile();
 
-			return true;
+			return storeData( file, data );
 		}
 
 		return false;
 	}
 
+	public boolean storeSugar( String data )
+	{
+		if ( isExternalStorageWritable() )
+		{
+			File file = getSugarFile();
+
+			return storeData( file, data );
+		}
+
+		return false;
+	}
+
+	private boolean storeData( File file, String data )
+	{
+		try
+		{
+			long fileLength = file.length();
+			RandomAccessFile raf = new RandomAccessFile( file, "rw" );
+			raf.seek( fileLength );
+			raf.writeBytes( data );
+			raf.close();
+			return true;
+		}
+		catch ( Exception e )
+		{
+			return false;
+		}
+	}
+
 	public static File getPressureFile()
 	{
-		String storagePath = Environment.getExternalStorageDirectory().getParent();
-		File file = new File( storagePath + File.separator + Preferences.dataLocation + File.separator
-				+ Preferences.pressureFile + ".csv" );
+		String dataLocation = getDataLocation();
+		File file = new File( dataLocation + Preferences.pressureFile + ".csv" );
 		return file;
+	}
+
+	public static File getSugarFile()
+	{
+		String dataLocation = getDataLocation();
+		File file = new File( dataLocation + Preferences.sugarFile + ".csv" );
+		return file;
+	}
+
+	private static String getDataLocation()
+	{
+		String storagePath = null;
+		if ( Preferences.dataLocation.equals( "sdcard0" ) )
+		{
+			storagePath = "/mnt/sdcard";
+		}
+		else
+		{
+			storagePath = "/mnt/extSdCard";
+		}
+		return storagePath + File.separator;
 	}
 }

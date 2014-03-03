@@ -10,11 +10,13 @@ import java.util.Arrays;
 import android.widget.Toast;
 import de.flyingfeet.healthyapp.MainActivity;
 import de.flyingfeet.healthyapp.models.Pressure;
+import de.flyingfeet.healthyapp.models.Sugar;
 
 public class DataStorage
 {
 	private static final DataStorage instance = new DataStorage();
 	private Pressure[] pressures;
+	private Sugar[] sugars;
 
 	private DataStorage()
 	{
@@ -74,14 +76,68 @@ public class DataStorage
 		return values;
 	}
 
+	private Sugar[] parseSugar()
+	{
+		ArrayList<Sugar> list = new ArrayList<Sugar>();
+
+		BufferedReader bufferedReader = null;
+		try
+		{
+			String currentLine;
+			FileReader fileReader = new FileReader( StorageUtil.getSugarFile() );
+			bufferedReader = new BufferedReader( fileReader );
+			while ( ( currentLine = bufferedReader.readLine() ) != null )
+			{
+				list.add( new Sugar( currentLine ) );
+			}
+		}
+		catch ( FileNotFoundException e )
+		{
+			Toast.makeText( MainActivity.activity, "Datei konnte nicht gefunden werden.", Toast.LENGTH_SHORT ).show();
+		}
+		catch ( IOException e )
+		{
+			Toast.makeText( MainActivity.activity, "Ein Fehler ist aufgetreten: " + e.getLocalizedMessage(),
+					Toast.LENGTH_SHORT ).show();
+		}
+		finally
+		{
+			try
+			{
+				if ( bufferedReader != null )
+					bufferedReader.close();
+			}
+			catch ( IOException ex )
+			{
+				Toast.makeText( MainActivity.activity, "Ein Fehler ist aufgetreten: " + ex.getLocalizedMessage(),
+						Toast.LENGTH_SHORT ).show();
+			}
+		}
+
+		Sugar[] values = new Sugar[list.size()];
+
+		for ( int i = 0; i < values.length; i++ )
+		{
+			values[i] = list.get( i );
+		}
+		Arrays.sort( values, Sugar.SugarDateComparator );
+
+		return values;
+	}
+
 	public void reloadPressures()
 	{
 		pressures = parsePressure();
 	}
 
+	public void reloadSugars()
+	{
+		sugars = parseSugar();
+	}
+
 	public Pressure[] getPressures()
 	{
-		if ( isListNullOrEmpty() )
+		if ( isPressuresListNullOrEmpty() )
 		{
 			pressures = parsePressure();
 		}
@@ -89,9 +145,19 @@ public class DataStorage
 		return pressures;
 	}
 
+	public Sugar[] getSugars()
+	{
+		if ( isSugarsListNullOrEmpty() )
+		{
+			sugars = parseSugar();
+		}
+
+		return sugars;
+	}
+
 	public Pressure getLatestPressure()
 	{
-		if ( isListNullOrEmpty() )
+		if ( isPressuresListNullOrEmpty() )
 		{
 			pressures = parsePressure();
 		}
@@ -106,9 +172,36 @@ public class DataStorage
 		}
 	}
 
-	private boolean isListNullOrEmpty()
+	public Sugar getLatestSugar()
+	{
+		if ( isSugarsListNullOrEmpty() )
+		{
+			sugars = parseSugar();
+		}
+
+		if ( sugars.length > 0 )
+		{
+			return sugars[0];
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	private boolean isPressuresListNullOrEmpty()
 	{
 		if ( pressures == null || pressures.length == 0 )
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	private boolean isSugarsListNullOrEmpty()
+	{
+		if ( sugars == null || sugars.length == 0 )
 		{
 			return true;
 		}
