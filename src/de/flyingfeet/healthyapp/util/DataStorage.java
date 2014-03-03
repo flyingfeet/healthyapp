@@ -42,7 +42,7 @@ public class DataStorage
 		}
 		catch ( FileNotFoundException e )
 		{
-//			Toast.makeText( MainActivity.activity, "Datei konnte nicht gefunden werden.", Toast.LENGTH_SHORT ).show();
+			Toast.makeText( MainActivity.activity, "Datei konnte nicht gefunden werden.", Toast.LENGTH_SHORT ).show();
 		}
 		catch ( IOException e )
 		{

@@ -26,28 +26,28 @@ import de.flyingfeet.healthyapp.util.NumberPickerUtil;
 
 public class ModifyPressure extends RoboActivity
 {
-	@InjectView(R.id.editPressureDate)
-	EditText date;
+	@InjectView( R.id.editPressureDate )
+	EditText			date;
 
-	@InjectView(R.id.editPressureTime)
-	EditText time;
+	@InjectView( R.id.editPressureTime )
+	EditText			time;
 
-	@InjectView(R.id.editPressureSystolic)
-	EditText systolic;
+	@InjectView( R.id.editPressureSystolic )
+	EditText			systolic;
 
-	@InjectView(R.id.editPressureDiastolic)
-	EditText diastolic;
+	@InjectView( R.id.editPressureDiastolic )
+	EditText			diastolic;
 
-	@InjectView(R.id.editPressurePulse)
-	EditText pulse;
+	@InjectView( R.id.editPressurePulse )
+	EditText			pulse;
 
-	@InjectResource(R.string.buttonOk)
-	String ok;
+	@InjectResource( R.string.buttonOk )
+	String			ok;
 
-	@InjectResource(R.string.buttonClose)
-	String close;
+	@InjectResource( R.string.buttonClose )
+	String			close;
 
-	CalenderUtil calenderUtil = new CalenderUtil();
+	CalenderUtil	calenderUtil	= new CalenderUtil();
 
 	@Override
 	public void onCreate( Bundle bundle )
@@ -258,22 +258,17 @@ public class ModifyPressure extends RoboActivity
 			@Override
 			public void onTimeSet( TimePicker view, int hourOfDay, int minute )
 			{
+				String h = String.valueOf( hourOfDay );
+				String m = String.valueOf( minute );
+				if ( hourOfDay < 10 )
+				{
+					h = "0" + h;
+				}
 				if ( minute < 10 )
 				{
-					time.setText( hourOfDay + ":0" + minute + " Uhr" );
+					m = "0" + m;
 				}
-				else if ( hourOfDay < 10 )
-				{
-					time.setText( "0" + hourOfDay + ":" + minute + " Uhr" );
-				}
-				else if ( hourOfDay < 10 && minute < 10 )
-				{
-					time.setText( "0" + hourOfDay + ":0" + minute + " Uhr" );
-				}
-				else
-				{
-					time.setText( hourOfDay + ":" + minute + " Uhr" );
-				}
+				time.setText( h + ":" + m + " Uhr" );
 			}
 		} );
 		picker.setCancelable( true );

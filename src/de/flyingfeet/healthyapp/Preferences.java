@@ -1,6 +1,13 @@
 package de.flyingfeet.healthyapp;
 
-import de.flyingfeet.healthyapp.util.DataStorage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -12,22 +19,25 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.widget.Toast;
+import de.flyingfeet.healthyapp.util.DataStorage;
+import de.flyingfeet.healthyapp.util.StorageUtil;
 
 public class Preferences extends PreferenceFragment implements OnPreferenceChangeListener
 {
-	private static boolean initialized = false;
+	private static boolean			initialized			= false;
 
-	public static String dataLocation;
-	public static String pressureFile;
-	public static String sugarFile;
+	public static String				dataLocation;
+	public static String				pressureFile;
+	public static String				sugarFile;
 
-	private static final String DATA_LOCATION_KEY = "dataLocation";
-	private static final String PRESSURE_FILE_KEY = "pressureFile";
-	private static final String SUGAR_FILE_KEY = "sugarFile";
+	private static final String	DATA_LOCATION_KEY	= "dataLocation";
+	private static final String	PRESSURE_FILE_KEY	= "pressureFile";
+	private static final String	SUGAR_FILE_KEY		= "sugarFile";
 
-	private ListPreference dataLocationPref;
-	private EditTextPreference pressureFilePref;
-	private EditTextPreference sugarFilePref;
+	private ListPreference			dataLocationPref;
+	private EditTextPreference		pressureFilePref;
+	private EditTextPreference		sugarFilePref;
 
 	@Override
 	public void onCreate( Bundle savedInstanceState )
@@ -62,7 +72,7 @@ public class Preferences extends PreferenceFragment implements OnPreferenceChang
 
 		dataLocation = prefs.getString( DATA_LOCATION_KEY, HealthyConstants.DATA_LOCATION_DEFAULT );
 		pressureFile = prefs.getString( PRESSURE_FILE_KEY, HealthyConstants.PRESSURE_FILE_DEFAULT );
-		pressureFile = prefs.getString( SUGAR_FILE_KEY, HealthyConstants.SUGAR_FILE_DEFAULT );
+		sugarFile = prefs.getString( SUGAR_FILE_KEY, HealthyConstants.SUGAR_FILE_DEFAULT );
 
 		initialized = true;
 	}
@@ -71,20 +81,32 @@ public class Preferences extends PreferenceFragment implements OnPreferenceChang
 	public boolean onPreferenceChange( Preference preference, Object newValue )
 	{
 		final Editor editor = PreferenceManager.getDefaultSharedPreferences( getActivity() ).edit();
+		File fileSrc = null;
+		File fileDest = null;
 		if ( preference.equals( dataLocationPref ) )
 		{
+			fileSrc = StorageUtil.getPressureFile();
 			dataLocation = (String) newValue;
+			fileDest = StorageUtil.getPressureFile();
 			editor.putString( DATA_LOCATION_KEY, dataLocation );
 		}
 		else if ( preference.equals( pressureFilePref ) )
 		{
+			fileSrc = StorageUtil.getPressureFile();
 			pressureFile = (String) newValue;
+			fileDest = StorageUtil.getPressureFile();
 			editor.putString( PRESSURE_FILE_KEY, pressureFile );
 		}
 		else if ( preference.equals( sugarFilePref ) )
 		{
+			fileSrc = StorageUtil.getPressureFile();
 			sugarFile = (String) newValue;
+			fileDest = StorageUtil.getPressureFile();
 			editor.putString( SUGAR_FILE_KEY, sugarFile );
+		}
+		if ( fileSrc != null && fileDest != null )
+		{
+			copyFile( fileSrc, fileDest );
 		}
 		editor.commit();
 
@@ -97,4 +119,40 @@ public class Preferences extends PreferenceFragment implements OnPreferenceChang
 		return false;
 	}
 
+	private void copyFile( File src, File dest )
+	{
+		InputStream in = null;
+		OutputStream out = null;
+		try
+		{
+			in = new FileInputStream( src );
+			out = new FileOutputStream( dest );
+
+			// Transfer bytes from in to out
+			byte[] buf = new byte[1024];
+			int len;
+			while ( ( len = in.read( buf ) ) > 0 )
+			{
+				out.write( buf, 0, len );
+			}
+			if ( in != null )
+			{
+				in.close();
+				src.delete();
+			}
+			if ( out != null )
+			{
+				out.close();
+			}
+		}
+		catch ( FileNotFoundException e )
+		{
+			Toast.makeText( MainActivity.activity, "Datei konnte nicht gefunden werden.", Toast.LENGTH_SHORT ).show();
+		}
+		catch ( IOException e )
+		{
+			Toast.makeText( MainActivity.activity, "Ein Fehler ist aufgetreten: " + e.getLocalizedMessage(),
+					Toast.LENGTH_SHORT ).show();
+		}
+	}
 }

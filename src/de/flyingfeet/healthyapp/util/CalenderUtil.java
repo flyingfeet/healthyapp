@@ -16,10 +16,10 @@ import de.flyingfeet.healthyapp.HealthyConstants;
 
 public class CalenderUtil implements Serializable
 {
-	private static final long serialVersionUID = -4881485466493661454L;
+	private static final long	serialVersionUID	= -4881485466493661454L;
 
-	private Calendar calendar;
-	private SimpleDateFormat formatter;
+	private Calendar				calendar;
+	private SimpleDateFormat	formatter;
 
 	public CalenderUtil()
 	{
@@ -80,17 +80,20 @@ public class CalenderUtil implements Serializable
 
 	public void setTextOnView( View view, int day, int month, int year )
 	{
+		String d = String.valueOf( day );
+		String m = String.valueOf( month + 1 );
+		if ( day < 10 )
+		{
+			d = "0" + d;
+		}
+		if ( ( month + 1 ) < 10 )
+		{
+			m = "0" + m;
+		}
 		if ( view instanceof TextView )
 		{
 			TextView editText = (TextView) view;
-			if ( month < 10 )
-			{
-				editText.setText( day + ".0" + ( month + 1 ) + "." + year );
-			}
-			else
-			{
-				editText.setText( day + "." + ( month + 1 ) + "." + year );
-			}
+			editText.setText( d + "." + m + "." + year );
 		}
 	}
 
@@ -101,25 +104,20 @@ public class CalenderUtil implements Serializable
 
 	public void setTextOnTimeView( View view, int hour, int minute )
 	{
+		String h = String.valueOf( hour );
+		String m = String.valueOf( minute );
+		if ( hour < 10 )
+		{
+			h = "0" + h;
+		}
+		if ( minute < 10 )
+		{
+			m = "0" + m;
+		}
 		if ( view instanceof TextView )
 		{
 			TextView editText = (TextView) view;
-			if ( minute < 10 )
-			{
-				editText.setText( hour + ":0" + minute + " Uhr" );
-			}
-			else if ( hour < 10 )
-			{
-				editText.setText( "0" + hour + ":" + minute + " Uhr" );
-			}
-			else if ( hour < 10 && minute < 10 )
-			{
-				editText.setText( "0" + hour + ":0" + minute + " Uhr" );
-			}
-			else
-			{
-				editText.setText( hour + ":" + minute + " Uhr" );
-			}
+			editText.setText( h + ":" + m + " Uhr" );
 		}
 	}
 }
