@@ -8,6 +8,7 @@
     <string name="action_save">Speichern</string>
     <string name="action_edit">Bearbeiten</string>
     <string name="action_remove">Löschen</string>
+    <string name="action_show_diagram">Diagramm zeigen</string>
     
     <string name="date">Datum:</string>
     <string name="actualDate">Aktuelles Datum</string>
@@ -21,10 +22,12 @@
     <string name="pulse">Puls: </string>
     <string name="p">P:</string>
     <string name="pressures">Blutdruckwerte</string>
+    <string name="pressureDiagram">Blutdruckdiagramm</string>
     
     <string name="sugarValue">Blutzuckerwert:</string>
     <string name="sugar">Zucker:</string>
     <string name="sugars">Blutzuckerwerte</string>
+    <string name="sugarDiagram">Blutzuckerdiagramm</string>
     
     <string name="buttonListPressures">Blutdruckwerte anzeigen</string>
     <string name="buttonListSugars">Blutzuckerwerte anzeigen</string>

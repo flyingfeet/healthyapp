@@ -8,7 +8,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.ListView;
 import de.flyingfeet.healthyapp.HealthyConstants;
 import de.flyingfeet.healthyapp.R;
-import de.flyingfeet.healthyapp.fragments.DiagramFragment;
 import de.flyingfeet.healthyapp.fragments.PressureFragment;
 import de.flyingfeet.healthyapp.fragments.SugarFragment;
 
@@ -37,11 +36,6 @@ public class NavigationUtil
 			break;
 		case 1:
 			fragment = new SugarFragment();
-			arguments.putInt( HealthyConstants.NAVIGATION_POSITION, position );
-			fragment.setArguments( arguments );
-			break;
-		case 2:
-			fragment = new DiagramFragment();
 			arguments.putInt( HealthyConstants.NAVIGATION_POSITION, position );
 			fragment.setArguments( arguments );
 			break;

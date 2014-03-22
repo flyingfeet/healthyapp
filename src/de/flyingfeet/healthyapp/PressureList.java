@@ -4,6 +4,9 @@ import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -13,7 +16,7 @@ import de.flyingfeet.healthyapp.util.DataStorage;
 
 public class PressureList extends RoboActivity
 {
-	@InjectView(R.id.listViewPressure)
+	@InjectView( R.id.listViewPressure )
 	ListView listview;
 
 	@Override
@@ -36,5 +39,28 @@ public class PressureList extends RoboActivity
 				startActivity( intent );
 			}
 		} );
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu( Menu menu )
+	{
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate( R.menu.show_diagram, menu );
+		return super.onCreateOptionsMenu( menu );
+	}
+
+	@Override
+	public boolean onOptionsItemSelected( MenuItem item )
+	{
+		switch ( item.getItemId() )
+		{
+		case R.id.show_diagram:
+			setTitle( getString( R.string.action_show_diagram ) );
+			Intent intent = new Intent( this, PressureDiagram.class );
+			startActivity( intent );
+			return true;
+		default:
+			return super.onOptionsItemSelected( item );
+		}
 	}
 }

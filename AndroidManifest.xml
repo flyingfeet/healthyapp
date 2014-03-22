@@ -36,9 +36,19 @@
             android:parentActivityName="de.flyingfeet.healthyapp.MainActivity" >
         </activity>
         <activity
+            android:name="de.flyingfeet.healthyapp.PressureDiagram"
+            android:label="@string/pressureDiagram"
+            android:parentActivityName="de.flyingfeet.healthyapp.PressureList" >
+        </activity>
+        <activity
             android:name="de.flyingfeet.healthyapp.SugarList"
             android:label="@string/sugars"
             android:parentActivityName="de.flyingfeet.healthyapp.MainActivity" >
+        </activity>
+        <activity
+            android:name="de.flyingfeet.healthyapp.SugarDiagram"
+            android:label="@string/sugarDiagram"
+            android:parentActivityName="de.flyingfeet.healthyapp.SugarList" >
         </activity>
     </application>
 

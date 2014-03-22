@@ -4,7 +4,6 @@
     <string-array name="healthy_array">
         <item>Blutdruck</item>
         <item>Blutzucker</item>
-        <item>Diagramme</item>
     </string-array>
 
 </resources>
