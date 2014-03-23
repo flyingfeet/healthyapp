@@ -1,5 +1,6 @@
 package de.flyingfeet.healthyapp;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import roboguice.activity.RoboActivity;
@@ -11,6 +12,7 @@ import com.androidplot.xy.PointLabelFormatter;
 import com.androidplot.xy.SimpleXYSeries;
 import com.androidplot.xy.XYPlot;
 import com.androidplot.xy.XYSeries;
+import com.androidplot.xy.XYStepMode;
 
 import de.flyingfeet.healthyapp.models.Pressure;
 import de.flyingfeet.healthyapp.util.DataStorage;
@@ -49,25 +51,28 @@ public class PressureDiagram extends RoboActivity
 				"Diastolisch" );
 		XYSeries pulseSeries = new SimpleXYSeries( diastolicValues, SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Puls" );
 
+		PointLabelFormatter pointLabelFormatter = new PointLabelFormatter();
 		LineAndPointFormatter systolicFormat = new LineAndPointFormatter();
-		systolicFormat.setPointLabelFormatter( new PointLabelFormatter() );
+		systolicFormat.setPointLabelFormatter( pointLabelFormatter );
 		systolicFormat.configure( getApplicationContext(), R.xml.line_point_formatter_green );
 		pressurePlot.addSeries( systolicSeries, systolicFormat );
 
 		LineAndPointFormatter diastolicFormat = new LineAndPointFormatter();
-		diastolicFormat.setPointLabelFormatter( new PointLabelFormatter() );
+		diastolicFormat.setPointLabelFormatter( pointLabelFormatter );
 		diastolicFormat.configure( getApplicationContext(), R.xml.line_point_formatter_blue );
 		pressurePlot.addSeries( diastolicSeries, diastolicFormat );
 
 		LineAndPointFormatter pulseFormat = new LineAndPointFormatter();
-		pulseFormat.setPointLabelFormatter( new PointLabelFormatter() );
+		pulseFormat.setPointLabelFormatter( pointLabelFormatter );
 		pulseFormat.configure( getApplicationContext(), R.xml.line_point_formatter_blue );
 		pressurePulsePlot.addSeries( pulseSeries, pulseFormat );
 
 		pressurePlot.setTicksPerRangeLabel( 3 );
-		pressurePlot.getGraphWidget().setDomainLabelOrientation( -45 );
+		pressurePlot.setDomainStep( XYStepMode.INCREMENT_BY_VAL, 1 );
+		pressurePlot.setDomainValueFormat( new DecimalFormat( "#" ) );
 
 		pressurePulsePlot.setTicksPerRangeLabel( 3 );
-		pressurePulsePlot.getGraphWidget().setDomainLabelOrientation( -45 );
+		pressurePulsePlot.setDomainStep( XYStepMode.INCREMENT_BY_VAL, 1 );
+		pressurePulsePlot.setDomainValueFormat( new DecimalFormat( "#" ) );
 	}
 }
